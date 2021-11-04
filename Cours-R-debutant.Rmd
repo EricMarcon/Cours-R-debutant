@@ -1,0 +1,243 @@
+---
+title: "Mise à niveau R"
+author: "Eric Marcon"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+url: https://EricMarcon.github.io/Cours-R-debutant/
+github-repo: EricMarcon/Cours-R-debutant
+bibliography: references.bib
+biblio-style: chicago
+output:
+  bookdown::ioslides_presentation2:
+    logo: images/logo.png
+    widescreen: true
+  bookdown::slidy_presentation2:
+    slide_level: 2
+  bookdown::beamer_presentation2:
+    latex_engine: xelatex
+    includes:
+      in_header: latex/header.tex
+    citation_package: natbib
+    slide_level: 2
+    df_print: kable
+    number_sections: no
+    toc: no
+    fig_caption: no
+    keep_tex: no
+---
+
+```{r DoNotModify, include=FALSE}
+### Utilities. Do not modify.
+# Installation of packages if necessary
+InstallPackages <- function(Packages) {
+  InstallPackage <- function(Package) {
+    if (!Package %in% installed.packages()[, 1]) {
+      install.packages(Package, repos="https://cran.rstudio.com/")
+    }
+  }
+  invisible(sapply(Packages, InstallPackage))
+}
+
+# Basic packages
+InstallPackages(c("bookdown", "formatR", "kableExtra", "ragg"))
+
+# kableExtra must be loaded 
+if (knitr::opts_knit$get("rmarkdown.pandoc.to") == "docx") {
+  # Word output (https://stackoverflow.com/questions/35144130/in-knitr-how-can-i-test-for-if-the-output-will-be-pdf-or-word)
+  # Do not use autoformat (https://github.com/haozhu233/kableExtra/issues/308)
+  options(kableExtra.auto_format = FALSE)
+}
+library("kableExtra")
+
+# Chunk font size hook: allows size='small' or any valid Latex font size in chunk options
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\n \\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+```
+
+```{r Options, include=FALSE}
+### Customized options for this document
+# Add necessary packages here
+Packages <- c("tidyverse")
+# Install them
+InstallPackages(Packages)
+
+# knitr options
+knitr::opts_chunk$set(
+  cache=FALSE, # Cache chunk results
+  echo = TRUE, # Show/Hide R chunks
+  warning=FALSE, # Show/Hide warnings
+  message=FALSE,  # Show/Hide messages
+  # Figure alignment and size
+  fig.align='center', out.width='80%',
+  # Graphic devices (ragg_png is better than standard png)
+  dev = c("ragg_png", "pdf"),
+  # Code chunk format
+  tidy=TRUE, tidy.opts=list(blank=FALSE, width.cutoff=50),
+  size="scriptsize", knitr.graphics.auto_pdf = TRUE
+  )
+options(width=50)
+
+# ggplot style
+library("tidyverse")
+theme_set(theme_bw())
+theme_update(panel.background=element_rect(fill="transparent", colour=NA),
+             plot.background=element_rect(fill="transparent", colour=NA))
+knitr::opts_chunk$set(dev.args=list(bg="transparent"))
+
+# Tibbles: 5 lines, fit to slide width
+options(tibble.print_min = 5, tibble.width = 50)
+
+# Random seed
+set.seed(973)
+```
+
+
+# Installation
+
+## R doit être installé proprement
+
+Rester à jour : version mineure en cours, ex.: 4.1
+```{r}
+version$version.string
+```
+
+Mettre à jour RStudio à chaque mise à jour de R
+
+![](images/book-reader.png){ height=40px } Référence : Travailler avec R, [chapitre 1](https://ericmarcon.github.io/travailleR/chap-logiciels.html)
+
+
+## Choisir un dossier de travail
+
+Le dossier Home : `~`
+
+Les packages sont installés dans `~/R/win-library/4.1/"
+
+Attention aux sauvegardes automatiques
+
+![](images/smile.png){ height=40px } Toujours travailler dans un projet : File / New Project...
+
+
+# Démarrage
+
+## Les fenêtres de RStudio{.flexbox .vcenter}
+
+![](images/RStudio.PNG)
+
+
+## Les variables{.columns-2} 
+
+\begincols
+  \begincol{.48\textwidth}
+  
+Ecrire en haut à gauche
+
+```{r}
+# Affectation
+a <- 1
+# ou encore
+1 -> a
+# mais éviter
+a = 1
+```
+
+Exécuter (Ctrl+Entrée) ligne à ligne : regarder en bas à gauche.
+
+Suivre l'environnement en haut à droite.
+
+  \endcol
+  \begincol{.48\textwidth}
+  <p class="forceBreak"></p>
+
+![](images/RStudio.PNG){ width=100% }
+
+  \endcol
+\endcols
+
+
+## R manipule des vecteurs
+
+Plutôt que des nombres
+
+```{r}
+x <- 1:5
+2*x
+sqrt(x)
+```
+
+## Créer des vecteurs (1)
+
+Des valeurs
+```{r}
+(x <- 1)
+(x <- c("pommes", "poires"))
+(x <- c(TRUE, FALSE))
+```
+
+Une séquence
+```{r}
+(x <- 1:5)
+(x <- seq(from=1, to=5, by=1))
+```
+## Créer des vecteurs (2)
+
+Une répétition
+```{r}
+(x <- rep(1, 5))
+(x <- rep(1:2, each=2))
+```
+
+![](images/smile.png){ height=40px }Utiliser systématiquement l'aide
+```{r, eval=FALSE}
+?rep
+```
+
+## Sélectionner des éléments (1)
+
+Utiliser les crochets
+```{r}
+x <- (1:10)*10
+x[3]
+```
+
+Utiliser des vecteurs pour sélectionner
+```{r}
+x[c(1, 3)]
+```
+
+## Tester des éléments
+
+Tirer des nombres dans une séquence, trouver lesquels sont pairs.
+```{r}
+x <- 1:100
+# Echantillonnage
+(y <- sample(x, 5))
+(y %% 2 == 0)
+```
+
+## Sélectionner des éléments (2)
+
+Utiliser les crochets
+```{r}
+y[y %% 2 == 0]
+```
+
+Les compter
+```{r}
+sum(y %% 2 == 0)
+```
+
+
+
+
+
+<!-- A slide for references --> 
+`r if (!knitr:::is_latex_output()) '## References {.smaller}'`
+<!-- Styles for HTML slides -->
+<!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentation/38294541#38294541 -->
+<style>
+  .forceBreak { -webkit-column-break-after: always; break-after: column; }
+  slides > slide { overflow: scroll; }
+  slides > slide:not(.nobackground):after { content: ''; }
+</style>
