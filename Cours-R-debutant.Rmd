@@ -112,12 +112,21 @@ Mettre à jour RStudio à chaque mise à jour de R
 
 Le dossier Home : `~`
 
-Les packages sont installés dans `~/R/win-library/4.1/"
-
-Attention aux sauvegardes automatiques
-
 ![](images/smile.png){ height=40px } Toujours travailler dans un projet : File / New Project...
 
+Ne jamais utiliser `setwd()` pour définir le dossier de travail: c'est toujours celui du projet.
+
+## Packages
+
+Les packages étendent les possibilités de R.
+
+Installation depuis un dépôt officiel avec contrôle de qualité : CRAN.
+
+Menu Tools / Install Packages...
+
+Les packages sont installés dans `~/R/win-library/4.1/`
+
+![](images/bomb.png){ height=40px }Attention aux sauvegardes automatiques
 
 # Démarrage
 
@@ -156,6 +165,8 @@ Suivre l'environnement en haut à droite.
 \endcols
 
 
+# Données
+
 ## R manipule des vecteurs
 
 Plutôt que des nombres
@@ -193,12 +204,14 @@ Une répétition
 ?rep
 ```
 
+
 ## Sélectionner des éléments (1)
 
 Utiliser les crochets
 ```{r}
 x <- (1:10)*10
 x[3]
+x[-5]
 ```
 
 Utiliser des vecteurs pour sélectionner
@@ -227,6 +240,427 @@ Les compter
 ```{r}
 sum(y %% 2 == 0)
 ```
+
+## Modes
+
+Les vecteurs contiennent des données de même mode:
+
+- numérique: `1:2`, `1L` (L pour un entier)
+- imaginaire: `(1+1i)*(1-1i)` (=2)
+- logique: `TRUE`
+- caractère: `"Bonjour"`
+- vide: `NULL`
+
+
+## Matrices
+
+Les matrices ont deux dimensions et contiennent des données de même mode
+
+```{r}
+(A <- matrix(1:9, nrow = 3))
+```
+
+## Sélectionner dans une matrice
+
+```{r}
+A[1, 2]
+A[, 3]
+```
+## Tableaux
+
+Extension des matrices à plus de deux dimensions
+```{r}
+A <- array(1:18, dim=c(3,3,2))
+A[, , 2]
+```
+
+## Listes
+
+Eléments disparates
+```{r}
+(L <- list(noms=c("X", "Y"), tailles=c(100, 120)))
+```
+
+```{r}
+L[[2]]
+L$noms
+```
+
+## data.frame
+
+Tableau dont chaque colonne est de mode unique
+```{r}
+(df <- data.frame(nom=c("X", "Y"), taille=c(100, 120)))
+```
+
+Sélection comme dans une matrice...
+```{r}
+df[2, ]
+```
+
+... ou comme dans une liste
+```{r}
+df$taille
+```
+Sélection de lignes en fonction de valeurs
+```{r}
+df[df$taille == 100, ]
+```
+# Fonctions
+
+## Définitions
+
+R est un langage fonctionnel
+```{r}
+y <- cos(pi)
+```
+
+Une fonction produit une valeur à partir d'arguments.
+
+Elle peut avoir des effets de bord.
+```{r}
+x <- plot(y)
+x
+```
+`plot` n'est utilisé que pour ses effets de bord.
+
+## Arguments
+
+Appeler une fonction en nommant tous ses arguments...
+```{r}
+runif(n=3, min=0, max=1)
+```
+
+... ou en les passant dans l'ordre
+```{r}
+runif(3, 0, 1)
+```
+
+Bonne pratique : nommer tous les arguments à partir du deuxième
+```{r}
+runif(3, min=0, max=1)
+```
+
+## Valeurs par défaut
+
+Voir l'aide de la fonction : `?runif`
+
+`min` et `max` ont des valeurs par défaut : 0 et 1.
+```{r}
+runif(3)
+```
+
+## Créer 
+
+Syntaxe:
+```{r}
+puissance <- function(x, r=1) {
+  return(x^r)
+}
+puissance(1:3, r=2)
+```
+Penser vecteur.
+`r` est recyclé.
+
+```{r}
+puissance(1:3, r=3:1)
+```
+
+## Si / Sinon
+
+```{r}
+est_pair <- function(x) {
+  if (x%%2 == 0) {
+    return(TRUE)
+  } else {
+    return(FALSE)
+  }
+}
+est_pair(3)
+```
+
+![](images/bomb.png){ height=40px }Fonction non vectorielle
+
+## Boucles
+
+```{r}
+for (i in 1:3) {
+  print(sqrt(i))
+}
+```
+![](images/bomb.png){ height=40px }Seulement si la fonction utilisée n'est pas vectorielle.
+```{r}
+sqrt(1:3)
+```
+# Graphiques de base
+
+## plot
+
+Graphiques simples
+
+```{r}
+X <- 1:10
+Y <- 2*X+rnorm(length(X))
+plot(x=X, y=Y)
+lines(x=X, y=Y, col="green", lty=2)
+abline(a=0, b=2, col="red")
+```
+
+## Classes
+
+Les objets appartiennent à des classes
+```{r}
+Ns <- rlnorm(100)
+class(Ns)
+```
+`plot` est une méthode, déclinée par classe.
+```{r}
+plot(Ns) # plot.numeric()
+```
+
+## Classes
+
+```{r}
+library("entropart")
+Ns <- as.ProbaVector(Ns)
+class(Ns)
+plot(as.ProbaVector(Ns)) # plot.SpeciesDistribution
+```
+# Tidyverse
+
+## Manifeste
+
+Univers bien rangé.
+
+Extension de R : ensemble de packages
+
+```{r, include=FALSE}
+library("tidyverse")
+```
+
+```{r, eval=FALSE}
+library("tidyverse")
+```
+
+Manifeste
+```{r, eval=FALSE}
+vignette("manifesto")
+```
+
+## Données
+
+Autant que possible dans un dataframe.
+
+`tibble` : dataframe amélioré.
+```{r}
+(mon_tibble <- tibble(nom=c("X", "Y"), taille=c(100, 120)))
+```
+
+## Tuyau
+
+Le résultat d'une fonction est le premier argument de la fonction suivante
+```{r}
+x <- runif(100, max=10) %>% mean()
+x
+# ou même
+100 %>% runif(max=10) %>% mean() %>% print() -> x
+```
+## Bagarre
+
+$Data wrangling$: lecture des données dans un tibble, sélection des lignes et colonnes, création de colonnes...
+
+```{r}
+# Lecture des arbres de la parcelle 6 de Paracou
+read_csv2("data/Paracou6.csv") %>% 
+  # Ne garder que les fabaceae
+  filter(Family=="Fabaceae") %>% 
+  # Sélectionner les colonnes espèce et circonférence
+  select(spName, CircCorr) %>% 
+  # Calculer la surface terrière de chaque arbre en m2
+  mutate(G=CircCorr^2/4/pi/10000) %>% 
+  # Grouper par espèce
+  group_by(spName) %>%
+  # Calculer le nombre de tiges et la surface terrière par ha
+  summarize(Abondance=n(), Surface=sum(G)/6.25 , .groups='drop') %>% 
+  # Trier par G/ha décroissant
+  arrange(desc(Surface))
+```
+
+Travail fastidieux.
+
+
+# Graphiques avec ggplot
+
+## $ggplot2$
+
+Package destiné à la création de graphiques.
+
+Respecte la [grammaire graphique par couches](http://vita.had.co.nz/papers/layered-grammar.pdf) :
+
+```
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+Les données sont obligatoirement un dataframe (un tibble est un dataframe).
+
+## Esthétique
+
+L'esthétique  désigne ce qui est représenté : 
+
+- `x` et `y` (ou `fill` pour un histogramme...)
+
+- transparence, couleur, type de courbe, taille, ... : voir l'aide de chaque `geom_`.
+
+Fonction `aes()` à plusieurs niveaux :
+
+- argument `mapping` de `ggplot()`, hérité par les couches (`geom_`)
+
+- argument `mapping` de chaque couche.
+
+
+## Géométrie
+
+La géométrie est définie par une fonction `geom_xxx` et une esthétique (ce qui est représenté).
+
+```{r, out.width='70%'}
+ggplot(data=diamonds) + geom_point(mapping = aes(x=carat, y=price, color=cut)) 
+```
+
+## Statistiques
+
+Chaque `geom_` va de pair avec une statistique de transformation des données : 
+
+- "identity" pour `geom_point`
+
+- "boxplot" pour `geom_boxplot`
+
+- 20 statistiques disponibles...
+
+## Statistiques
+
+
+```{r}
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+## Echelle
+
+Transformation de variable.
+
+```{r, out.width='70%'}
+diamonds %>% filter(carat>.5) %>% 
+  ggplot(aes(x=carat, y=price)) + geom_point() + scale_x_log10() + scale_y_log10() + geom_smooth(method="lm")
+```
+
+
+## Position
+
+La position définit l'emplacement des objets sur le graphique.
+
+- "identity" en général
+
+- "stack" empile les catégories dans un histogramme
+
+- "jitter" déplace aléatoirement les points dans un `geom_point` pour éviter les superpositions.
+
+
+## Position
+
+```{r, tidy=FALSE}
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color), position="stack") + 
+  scale_fill_brewer(palette = "Set1")
+```
+
+
+## Coordonnées
+
+Système de coordonnées :
+
+- `coord_flip()` intervertit `x` et `y`
+
+- `coord_polar()` : coordonnées polaires
+
+- `coord_trans()` transforme l'affichage des coordonnées (mais pas les données comme `scale_`)
+
+- etc.
+
+Exemple : tracer la carte des wapas de la parcelle 6.
+
+## Coordonnées
+
+```{r}
+read_csv2("data/Paracou6.csv") %>% filter(Genus=="Eperua") %>%
+  ggplot() + geom_point(aes(x=Xfield, y=Yfield, size=CircCorr, color=Species)) + coord_fixed() -> P6Map
+P6Map
+```
+
+## Facettes
+
+Présente plusieurs aspects du même graphique
+```{r}
+P6Map + facet_wrap(~ Species)
+```
+![](images/smile.png){ height=40px } Possibilité d'affiner un graphique
+
+# Aller plus loin
+
+## Rédiger avec RMarkdown
+
+Plutôt qu'un code commenté, un texte avec du code.
+Tricot : production de documents HTML ou PDF.
+
+Rédaction d'articles, de mémoires, de diaporama.
+
+Reproductibilité : le projet contient les données, le code, le texte et le modèle de mise en forme.
+
+Galerie : https://ericmarcon.github.io/memoiR/
+
+## Contrôle de source
+
+git (contrôle de source) et GitHub (plateforme web) pour
+
+- tracer les versions d'un projet, 
+- collaborer
+- tester le code automatiquement
+- tricoter automatiquement
+
+Exemple: https://github.com/EricMarcon/travailleR
+
+## Sites web etc.
+
+Il existe des package pour tout.
+
+Exemples :
+
+- Site web : https://ericmarcon.github.io/fr/
+- Application Shiny : https://vac-lshtm.shinyapps.io/ncov_tracker/
+- TP en ligne : https://eric-marcon.shinyapps.io/TP-Biodiversite/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
