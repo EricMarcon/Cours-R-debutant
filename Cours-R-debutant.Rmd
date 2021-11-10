@@ -59,7 +59,7 @@ knitr::knit_hooks$set(chunk = function(x, options) {
 ```{r Options, include=FALSE}
 ### Customized options for this document
 # Add necessary packages here
-Packages <- c("tidyverse")
+Packages <- c("tidyverse", "entropart")
 # Install them
 InstallPackages(Packages)
 
@@ -680,7 +680,7 @@ Exemple: https://github.com/EricMarcon/travailleR
 
 ## Sites web etc.
 
-Il existe des package pour tout.
+Il existe des packages pour tout.
 
 Exemples :
 
@@ -689,9 +689,6 @@ Exemples :
 - TP en ligne : https://eric-marcon.shinyapps.io/TP-Biodiversite/.
 
 
-
-<!-- A slide for references --> 
-`r if (!knitr:::is_latex_output()) '## References {.smaller}'`
 <!-- Styles for HTML slides -->
 <!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentation/38294541#38294541 -->
 <style>
