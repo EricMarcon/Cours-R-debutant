@@ -7,11 +7,6 @@ github-repo: EricMarcon/Cours-R-debutant
 bibliography: references.bib
 biblio-style: chicago
 output:
-  bookdown::ioslides_presentation2:
-    logo: images/logo.png
-    widescreen: true
-  bookdown::slidy_presentation2:
-    slide_level: 2
   bookdown::beamer_presentation2:
     latex_engine: xelatex
     includes:
@@ -23,6 +18,11 @@ output:
     toc: no
     fig_caption: no
     keep_tex: no
+  bookdown::slidy_presentation2:
+    slide_level: 2
+  bookdown::ioslides_presentation2:
+    logo: images/logo.png
+    widescreen: true
 ---
 
 ```{r DoNotModify, include=FALSE}
@@ -141,7 +141,7 @@ Les packages sont installés dans `~/R/win-library/4.1/`
 \begincols
   \begincol{.48\textwidth}
   
-- Ecrire en haut à gauche
+Ecrire en haut à gauche.
 
 ```{r}
 # Affectation
@@ -152,9 +152,8 @@ a <- 1
 a = 1
 ```
 
-- Exécuter (Ctrl+Entrée) : voir en bas à gauche.
-
-- Suivre l'environnement en haut à droite.
+Exécuter (Ctrl+Entrée) : voir en bas à gauche.
+Environnement en haut à droite.
   
   <p class="forceBreak"></p>
   \endcol
