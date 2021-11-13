@@ -112,7 +112,7 @@ Mettre à jour RStudio à chaque mise à jour de R
 
 Le dossier Home : `~`
 
-![](images/smile.png){ height=40px } Toujours travailler dans un projet : File / New Project...
+![](images/smile.png){ height=40px }Toujours travailler dans un projet : File / New Project...
 
 Ne jamais utiliser `setwd()` pour définir le dossier de travail: c'est toujours celui du projet.
 
@@ -170,13 +170,15 @@ Environnement en haut à droite.
 
 ## R manipule des vecteurs
 
-Plutôt que des nombres
+Plutôt que des nombres :
 
 ```{r}
 x <- 1:5
 2*x
 sqrt(x)
 ```
+
+![](images/book-reader.png){ height=40px }Introduction à R et au tidyverse, [Prise en main](https://juba.github.io/tidyverse/02-prise_en_main.html)
 
 ## Créer des vecteurs (1)
 
@@ -363,7 +365,7 @@ runif(3, 0, 1)
 
 ## Arguments nommés
 
-Bonne pratique : nommer tous les arguments à partir du deuxième:
+![](images/smile.png){ height=40px }Bonne pratique : nommer tous les arguments à partir du deuxième:
 ```{r}
 runif(3, min=0, max=1)
 ```
@@ -437,7 +439,7 @@ lines(x=X, y=Y, col="green", lty=2)
 abline(a=0, b=2, col="red")
 ```
 
-## Classes
+## Classes (1)
 
 Les objets appartiennent à des classes.
 ```{r}
@@ -450,7 +452,7 @@ class(Ns)
 plot(Ns) # plot.numeric()
 ```
 
-## Classes
+## Classes (2)
 
 ```{r, out.width="20%"}
 library("entropart")
@@ -479,6 +481,8 @@ Manifeste
 ```{r, eval=FALSE}
 vignette("manifesto")
 ```
+
+![](images/book-reader.png){ height=40px }Introduction à R et au tidyverse, [Le tidyverse](https://juba.github.io/tidyverse/06-tidyverse.html)
 
 ## Données
 
@@ -650,13 +654,13 @@ Présente plusieurs aspects du même graphique:
 P6Map + facet_wrap(~ Species)
 ```
 
-![](images/smile.png){ height=40px } Possibilité d'affiner un graphique
+![](images/smile.png){ height=40px }Possibilité d'affiner un graphique
 
 # Aller plus loin
 
 ## Rédiger avec RMarkdown
 
-Plutôt qu'un code commenté, un texte avec du code.
+![](images/smile.png){ height=40px }Plutôt qu'un code commenté, un texte avec du code.
 
 Tricot : production de documents HTML ou PDF.
 
@@ -686,6 +690,38 @@ Exemples :
 - Site web : https://ericmarcon.github.io/fr/,
 - Application Shiny : https://vac-lshtm.shinyapps.io/ncov_tracker/,
 - TP en ligne : https://eric-marcon.shinyapps.io/TP-Biodiversite/.
+
+
+# En pratique
+
+## Travailler dans un projet
+
+Créer un projet, y placer tous les fichiers.
+
+Scripts dans le dossier du projet.
+
+Données dans `data`.
+
+## Un fichier par traitement
+
+Ecrire un script dans un projet R, le commenter abondamment.
+
+![](images/smile.png){ height=40px }Utiliser dès que possible des blocs-note RMarkdown.
+
+## Utiliser les aides
+
+Aide des fonctions dans R.
+
+Google.
+
+Vignettes des packages.
+
+## Echanger le projet complet
+
+Pour collaborer, partager le dossier du projet.
+
+![](images/smile.png){ height=40px }Utiliser dès que possible GitHub.
+
 
 
 <!-- Styles for HTML slides -->
