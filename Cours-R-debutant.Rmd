@@ -112,7 +112,7 @@ Mettre à jour RStudio à chaque mise à jour de R
 
 Le dossier Home : `~`
 
-![](images/smile.png){ height=40px }Toujours travailler dans un projet : File / New Project...
+![](images/smile.png){ height=40px } Toujours travailler dans un projet : File / New Project...
 
 Ne jamais utiliser `setwd()` pour définir le dossier de travail: c'est toujours celui du projet.
 
@@ -126,7 +126,7 @@ Menu Tools / Install Packages...
 
 Les packages sont installés dans `~/R/win-library/4.1/`
 
-![](images/bomb.png){ height=40px }Attention aux sauvegardes automatiques
+![](images/bomb.png){ height=40px } Attention aux sauvegardes automatiques
 
 
 # Démarrage
@@ -178,7 +178,7 @@ x <- 1:5
 sqrt(x)
 ```
 
-![](images/book-reader.png){ height=40px }Introduction à R et au tidyverse, [Prise en main](https://juba.github.io/tidyverse/02-prise_en_main.html)
+![](images/book-reader.png){ height=40px } Introduction à R et au tidyverse, [Prise en main](https://juba.github.io/tidyverse/02-prise_en_main.html)
 
 ## Créer des vecteurs (1)
 
@@ -205,7 +205,7 @@ Une répétition :
 (x <- rep(1:2, each=2))
 ```
 
-![](images/smile.png){ height=40px }Utiliser systématiquement l'aide
+![](images/smile.png){ height=40px } Utiliser systématiquement l'aide
 ```{r, eval=FALSE, tidy=FALSE}
 ?rep
 ```
@@ -230,7 +230,7 @@ x[c(1, 3)]
 Tirer des nombres dans une séquence, trouver lesquels sont pairs.
 ```{r}
 x <- 1:100
-# Echantillonnage
+# Échantillonnage
 (y <- sample(x, 5))
 (y %% 2 == 0)
 ```
@@ -365,7 +365,7 @@ runif(3, 0, 1)
 
 ## Arguments nommés
 
-![](images/smile.png){ height=40px }Bonne pratique : nommer tous les arguments à partir du deuxième:
+![](images/smile.png){ height=40px } Bonne pratique : nommer tous les arguments à partir du deuxième:
 ```{r}
 runif(3, min=0, max=1)
 ```
@@ -411,7 +411,7 @@ est_pair <- function(x) {
 est_pair(3)
 ```
 
-![](images/bomb.png){ height=40px }Fonction non vectorielle
+![](images/bomb.png){ height=40px } Fonction non vectorielle
 
 ## Boucles
 
@@ -420,7 +420,7 @@ for (i in 1:3) {
   print(sqrt(i))
 }
 ```
-![](images/bomb.png){ height=40px }Seulement si la fonction utilisée n'est pas vectorielle.
+![](images/bomb.png){ height=40px } Seulement si la fonction utilisée n'est pas vectorielle.
 ```{r}
 sqrt(1:3)
 ```
@@ -454,7 +454,7 @@ plot(Ns) # plot.numeric()
 
 ## Classes (2)
 
-```{r, out.width="20%"}
+```{r, out.width="30%"}
 library("entropart")
 Ns <- as.ProbaVector(Ns)
 class(Ns)
@@ -482,7 +482,7 @@ Manifeste
 vignette("manifesto")
 ```
 
-![](images/book-reader.png){ height=40px }Introduction à R et au tidyverse, [Le tidyverse](https://juba.github.io/tidyverse/06-tidyverse.html)
+![](images/book-reader.png){ height=40px } Introduction à R et au tidyverse, [Le tidyverse](https://juba.github.io/tidyverse/06-tidyverse.html)
 
 ## Données
 
@@ -519,7 +519,7 @@ read_csv2("data/Paracou6.csv") %>%
   # Grouper par espèce
   group_by(spName) %>%
   # Calculer le nombre de tiges et la surface terrière par ha
-  summarize(Abondance = n(), Surface = sum(G)/6.25 , .groups = 'drop') %>% 
+  summarize(Abondance=n(), Surface=sum(G)/6.25 , .groups='drop') %>% 
   # Trier par G/ha décroissant
   arrange(desc(Surface)) ->
   mon_tibble
@@ -575,7 +575,7 @@ Fonction `aes()` à plusieurs niveaux :
 
 La géométrie est définie par une fonction `geom_xxx` et une esthétique (ce qui est représenté).
 
-```{r, out.width='50%', tidy=FALSE}
+```{r, out.width='60%', tidy=FALSE}
 ggplot(data = diamonds) + 
   geom_point(mapping = aes(x = carat, y = price, color = cut)) 
 ```
@@ -650,17 +650,17 @@ P6Map
 ## Facettes
 
 Présente plusieurs aspects du même graphique:
-```{r, out.width='50%'}
+```{r, out.width='60%'}
 P6Map + facet_wrap(~ Species)
 ```
 
-![](images/smile.png){ height=40px }Possibilité d'affiner un graphique
+![](images/smile.png){ height=40px } Possibilité d'affiner un graphique
 
 # Aller plus loin
 
 ## Rédiger avec RMarkdown
 
-![](images/smile.png){ height=40px }Plutôt qu'un code commenté, un texte avec du code.
+![](images/smile.png){ height=40px } Plutôt qu'un code commenté, un texte avec du code.
 
 Tricot : production de documents HTML ou PDF.
 
@@ -706,7 +706,7 @@ Données dans `data`.
 
 Ecrire un script dans un projet R, le commenter abondamment.
 
-![](images/smile.png){ height=40px }Utiliser dès que possible des blocs-note RMarkdown.
+![](images/smile.png){ height=40px } Utiliser dès que possible des blocs-note RMarkdown.
 
 ## Utiliser les aides
 
@@ -720,9 +720,7 @@ Vignettes des packages.
 
 Pour collaborer, partager le dossier du projet.
 
-![](images/smile.png){ height=40px }Utiliser dès que possible GitHub.
-
-
+![](images/smile.png){ height=40px } Utiliser dès que possible GitHub.
 
 <!-- Styles for HTML slides -->
 <!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentation/38294541#38294541 -->
