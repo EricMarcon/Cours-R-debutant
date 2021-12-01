@@ -7,6 +7,11 @@ github-repo: EricMarcon/Cours-R-debutant
 bibliography: references.bib
 biblio-style: chicago
 output:
+  bookdown::ioslides_presentation2:
+    logo: images/logo.png
+    widescreen: true
+  bookdown::slidy_presentation2:
+    slide_level: 2
   bookdown::beamer_presentation2:
     latex_engine: xelatex
     includes:
@@ -18,11 +23,6 @@ output:
     toc: no
     fig_caption: no
     keep_tex: no
-  bookdown::slidy_presentation2:
-    slide_level: 2
-  bookdown::ioslides_presentation2:
-    logo: images/logo.png
-    widescreen: true
 ---
 
 ```{r DoNotModify, include=FALSE}
@@ -127,6 +127,17 @@ Menu Tools / Install Packages...
 Les packages sont installés dans `~/R/win-library/4.1/`
 
 ![](images/bomb.png){ height=40px } Attention aux sauvegardes automatiques
+
+## RStudio
+
+Installer la dernière version.
+
+![](images/smile.png){ height=40px } Utiliser le codage UTF8 pour tous les fichiers:
+
+- Menu “File > New File > R Script”,
+- “File > Save with Encoding…”, choisir UTF8,
+- Cocher “Set as default encoding for source files”,
+- Enregistrer puis supprimer le fichier.
 
 
 # Démarrage
