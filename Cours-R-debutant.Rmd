@@ -10,8 +10,6 @@ output:
   bookdown::ioslides_presentation2:
     logo: images/logo.png
     widescreen: true
-  bookdown::slidy_presentation2:
-    slide_level: 2
   bookdown::beamer_presentation2:
     latex_engine: xelatex
     includes:
