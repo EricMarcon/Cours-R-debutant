@@ -6,6 +6,7 @@ url: https://EricMarcon.github.io/Cours-R-debutant/
 github-repo: EricMarcon/Cours-R-debutant
 bibliography: references.bib
 biblio-style: chicago
+urlcolor: blue
 output:
   bookdown::ioslides_presentation2:
     logo: images/logo.png
@@ -145,6 +146,40 @@ Installer la dernière version.
 ![](images/RStudio.PNG){ width=90% }
 
 
+## Travailler dans un projet
+
+Créer un projet, y placer tous les fichiers.
+
+Scripts dans le dossier du projet.
+
+Données dans `data`.
+
+
+## Un fichier par traitement
+
+Ecrire un script dans un projet R, le commenter abondamment.
+
+![](images/smile.png){ height=40px } Utiliser dès que possible des blocs-note RMarkdown.
+
+
+## Utiliser les aides
+
+Aide des fonctions dans R.
+
+Google.
+
+Vignettes des packages.
+
+
+## Echanger le projet complet
+
+Pour collaborer, partager le dossier du projet.
+
+![](images/smile.png){ height=40px } Utiliser dès que possible GitHub.
+
+
+# Données
+
 ## Les variables{.columns-2} 
 
 \begincols
@@ -173,9 +208,6 @@ Environnement en haut à droite.
 
   \endcol
 \endcols
-
-
-# Données
 
 ## R manipule des vecteurs
 
@@ -287,7 +319,7 @@ A[, 3]
 Extension des matrices à plus de deux dimensions
 ```{r}
 A <- array(1:18, dim=c(3,3,2))
-A[, , 2]
+A
 ```
 
 ## Sélectionner dans un tableau
@@ -440,7 +472,7 @@ sqrt(1:3)
 
 Graphiques simples :
 
-```{r, out.width="40%"}
+```{r, out.width="60%"}
 X <- 1:10
 Y <- 2*X+rnorm(length(X))
 plot(x=X, y=Y)
@@ -457,17 +489,17 @@ class(Ns)
 ```
 
 `plot` est une méthode, déclinée par classe.
-```{r, out.width="20%"}
+```{r, out.width="40%"}
 plot(Ns) # plot.numeric()
 ```
 
 ## Classes (2)
 
-```{r, out.width="30%"}
+```{r, out.width="50%"}
 library("entropart")
-Ns <- as.ProbaVector(Ns)
+Ns <- as.AbdVector(Ns)
 class(Ns)
-plot(as.ProbaVector(Ns)) # plot.SpeciesDistribution
+plot(Ns) # plot.SpeciesDistribution
 ```
 
 # Tidyverse
@@ -701,35 +733,6 @@ Exemples :
 - TP en ligne : https://eric-marcon.shinyapps.io/TP-Biodiversite/.
 
 
-# En pratique
-
-## Travailler dans un projet
-
-Créer un projet, y placer tous les fichiers.
-
-Scripts dans le dossier du projet.
-
-Données dans `data`.
-
-## Un fichier par traitement
-
-Ecrire un script dans un projet R, le commenter abondamment.
-
-![](images/smile.png){ height=40px } Utiliser dès que possible des blocs-note RMarkdown.
-
-## Utiliser les aides
-
-Aide des fonctions dans R.
-
-Google.
-
-Vignettes des packages.
-
-## Echanger le projet complet
-
-Pour collaborer, partager le dossier du projet.
-
-![](images/smile.png){ height=40px } Utiliser dès que possible GitHub.
 
 <!-- Styles for HTML slides -->
 <!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentation/38294541#38294541 -->
