@@ -1,3 +1,7 @@
+
+![stability-wip](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)
+![rmarkdown](https://github.com/EricMarcon/Cours-R-debutant/workflows/rmarkdown/badge.svg)
+
 # Mise à niveau R
 
 Cours R pour les faux-débutants.
