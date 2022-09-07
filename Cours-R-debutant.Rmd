@@ -454,7 +454,7 @@ est_pair(3)
 ![](images/bomb.png){ height=40px } Fonction non vectorielle. Utiliser plutôt :
 
 ```{r}
-(1:3) %% 2
+((1:3) %% 2) == 0
 ```
 
 ## Boucles
